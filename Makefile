@@ -253,3 +253,13 @@ catalog-build: opm ## Build a catalog image.
 .PHONY: catalog-push
 catalog-push: ## Push a catalog image.
 	$(MAKE) docker-push IMG=$(CATALOG_IMG)
+
+.PHONY: label-deployment
+label-deployment:
+	@echo "labeling deployment with rbac-management-operator.com/example: successfully-edited"
+	@kubectl label deployment nginx-deployment rbac-management-operator.com/example=successfully-edited --overwrite --namespace=rbac-term-paper
+
+.PHONY: revert-label
+revert-label:
+	@echo "labeling deployment with rbac-management-operator.com/example: running"
+	@kubectl label deployment nginx-deployment rbac-management-operator.com/example=ruinning --overwrite --namespace=rbac-term-paper
